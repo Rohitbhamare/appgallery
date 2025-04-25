@@ -34,7 +34,7 @@ function Register() {
     setLoading(true)
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch("https://appgallery-ta1a.vercel.app/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
