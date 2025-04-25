@@ -24,7 +24,7 @@ function Login({ login }) {
     setLoading(true)
 
     try {
-      const response = await fetch("https://appgallery-ta1a.vercel.app/api/users/login", {
+      const response = await fetch("https://appgallery-zl5i.onrender.com/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
