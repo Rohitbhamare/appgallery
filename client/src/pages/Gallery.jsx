@@ -13,6 +13,8 @@ function Gallery() {
     caption: "",
   })
 
+  const BASE_URL = "https://appgallery-zl5i.onrender.com"
+
   useEffect(() => {
     fetchMedia()
   }, [])
@@ -21,7 +23,7 @@ function Gallery() {
     setLoading(true)
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch("https://appgallery-zl5i.onrender.com/api/media", {
+      const response = await fetch(`${BASE_URL}/api/media`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +61,7 @@ function Gallery() {
     e.preventDefault()
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`https://appgallery-zl5i.onrender.com/api/media/${editingMedia}`, {
+      const response = await fetch(`${BASE_URL}/api/media/${editingMedia}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +74,6 @@ function Gallery() {
         throw new Error("Failed to update media")
       }
 
-      // Update the media list
       fetchMedia()
       setEditingMedia(null)
     } catch (err) {
@@ -81,13 +82,11 @@ function Gallery() {
   }
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this item?")) {
-      return
-    }
+    if (!window.confirm("Are you sure you want to delete this item?")) return
 
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`https://appgallery-zl5i.onrender.com/api/media/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/media/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -98,7 +97,6 @@ function Gallery() {
         throw new Error("Failed to delete media")
       }
 
-      // Update the media list
       setMedia(media.filter((item) => item._id !== id))
     } catch (err) {
       setError(err.message)
@@ -108,24 +106,22 @@ function Gallery() {
   const renderMediaItem = (mediaItem) => {
     const isEditing = editingMedia === mediaItem._id
     const isVideo = mediaItem.mediaType.startsWith("video")
+    const mediaSrc = `${BASE_URL}/${mediaItem.mediaPath}`
 
     return (
       <div className="col-md-4 mb-4" key={mediaItem._id}>
         <div className="media-card">
           {isVideo ? (
-            <video className="media-video" controls src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} />
+            <video className="media-video" controls src={mediaSrc} />
           ) : (
-            // <img className="media-img" src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} alt={mediaItem.title} />
-            <img className="media-img" src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} alt={mediaItem.title} />
+            <img className="media-img" src={mediaSrc} alt={mediaItem.title} />
           )}
 
           <div className="media-body">
             {isEditing ? (
               <form onSubmit={handleEditSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="title" className="form-label">
-                    Title
-                  </label>
+                  <label htmlFor="title" className="form-label">Title</label>
                   <input
                     type="text"
                     className="form-control"
@@ -137,9 +133,7 @@ function Gallery() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="caption" className="form-label">
-                    Caption
-                  </label>
+                  <label htmlFor="caption" className="form-label">Caption</label>
                   <textarea
                     className="form-control"
                     id="caption"
@@ -150,12 +144,8 @@ function Gallery() {
                   />
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button type="submit" className="btn btn-success">
-                    Save
-                  </button>
-                  <button type="button" className="btn btn-secondary" onClick={() => setEditingMedia(null)}>
-                    Cancel
-                  </button>
+                  <button type="submit" className="btn btn-success">Save</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => setEditingMedia(null)}>Cancel</button>
                 </div>
               </form>
             ) : (
@@ -183,11 +173,7 @@ function Gallery() {
     <div className="container gallery-container">
       <h1 className="mb-4">Your Media Gallery</h1>
 
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      )}
+      {error && <div className="alert alert-danger" role="alert">{error}</div>}
 
       {loading ? (
         <div className="text-center py-5">
@@ -199,9 +185,7 @@ function Gallery() {
       ) : media.length === 0 ? (
         <div className="alert alert-info">
           <p>You haven't uploaded any media yet.</p>
-          <a href="/upload" className="btn btn-primary mt-2">
-            Upload Now
-          </a>
+          <a href="/upload" className="btn btn-primary mt-2">Upload Now</a>
         </div>
       ) : (
         <div className="row">{media.map(renderMediaItem)}</div>
