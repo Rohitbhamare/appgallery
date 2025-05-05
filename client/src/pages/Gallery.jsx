@@ -21,7 +21,7 @@ function Gallery() {
     setLoading(true)
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch("http://localhost:5000/api/media", {
+      const response = await fetch("https://appgallery-ta1a.vercel.app/api/media", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +59,7 @@ function Gallery() {
     e.preventDefault()
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`http://localhost:5000/api/media/${editingMedia}`, {
+      const response = await fetch(`https://appgallery-ta1a.vercel.app/api/media/${editingMedia}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ function Gallery() {
 
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`http://localhost:5000/api/media/${id}`, {
+      const response = await fetch(`https://appgallery-ta1a.vercel.app/api/media/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ function Gallery() {
       <div className="col-md-4 mb-4" key={mediaItem._id}>
         <div className="media-card">
           {isVideo ? (
-            <video className="media-video" controls src={`http://localhost:5000/${mediaItem.mediaPath}`} />
+            <video className="media-video" controls src={`https://appgallery-ta1a.vercel.app/${mediaItem.mediaPath}`} />
           ) : (
             // <img className="media-img" src={`http://localhost:5000/${mediaItem.mediaPath}`} alt={mediaItem.title} />
             <img className="media-img" src={`http://localhost:5000/${mediaItem.mediaPath}`} alt={mediaItem.title} />
