@@ -115,8 +115,8 @@ function Gallery() {
           {isVideo ? (
             <video className="media-video" controls src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} />
           ) : (
-            // <img className="media-img" src={`http://localhost:5000/${mediaItem.mediaPath}`} alt={mediaItem.title} />
-            <img className="media-img" src={`http://localhost:5000/${mediaItem.mediaPath}`} alt={mediaItem.title} />
+            // <img className="media-img" src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} alt={mediaItem.title} />
+            <img className="media-img" src={`https://appgallery-zl5i.onrender.com/${mediaItem.mediaPath}`} alt={mediaItem.title} />
           )}
 
           <div className="media-body">
