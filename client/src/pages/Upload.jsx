@@ -85,7 +85,7 @@ function Upload() {
       formDataToSend.append("caption", formData.caption)
       formDataToSend.append("media", file)
 
-      const response = await fetch("http://localhost:5000/api/media/upload", {
+      const response = await fetch("https://appgallery-ta1a.vercel.app/api/media/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
