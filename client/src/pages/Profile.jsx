@@ -23,7 +23,7 @@ function Profile() {
     setLoading(true)
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch("http://localhost:5000/api/users/profile", {
+      const response = await fetch("https://appgallery-ta1a.vercel.app/api/users/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +134,7 @@ function Profile() {
                   <>
                   
 <img
-  src={photoPreview || (profile.user.profilePhoto ? `http://localhost:5000${profile.user.profilePhoto}` : "/placeholder-user.jpg")}
+  src={photoPreview || (profile.user.profilePhoto ? `https://appgallery-ta1a.vercel.app/${profile.user.profilePhoto}` : "/placeholder-user.jpg")}
   alt="Profile"
   className="rounded-circle img-thumbnail"
   style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -154,7 +154,7 @@ function Profile() {
                   </>
                 ) : (
                   <img
-                    src={profile.user.profilePhoto ? `http://localhost:5000/${profile.user.profilePhoto}` : "/placeholder-user.jpg"}
+                    src={profile.user.profilePhoto ? `https://appgallery-ta1a.vercel.app/${profile.user.profilePhoto}` : "/placeholder-user.jpg"}
                     alt="Profile"
                     className="rounded-circle img-thumbnail"
                     style={{ width: "150px", height: "150px", objectFit: "cover" }}
